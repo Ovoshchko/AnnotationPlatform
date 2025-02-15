@@ -16,8 +16,7 @@ CREATE TABLE IF NOT EXISTS batch
     overlap_coefficient int          not null default 1,
     created_at          timestamp    not null,
     task_type_id        uuid         not null,
-    is_educational      boolean      not null default false,
-    foreign key (task_type_id) references task_type (id)
+    is_educational      boolean      not null default false
 );
 
 CREATE TABLE IF NOT EXISTS task
@@ -41,6 +40,5 @@ CREATE TABLE IF NOT EXISTS task_filled
     task_id    uuid         not null,
     answer     jsonb,
     filled_by  varchar(255) not null,
-    created_at timestamp    not null,
-    foreign key (task_id) references task (id)
+    created_at timestamp    not null
 );

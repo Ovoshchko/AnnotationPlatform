@@ -1,8 +1,11 @@
 package ru.itmo.ai.school.ecom.labelsmanagerservice.dto.response
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies
+import com.fasterxml.jackson.databind.annotation.JsonNaming
 import java.time.LocalDateTime
 import java.util.*
 
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class BatchDtoResponse(
     val batchId: UUID,
     val batchName: String,

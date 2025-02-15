@@ -1,4 +1,4 @@
-rootProject.name = "TaskService"
+rootProject.name = "ApiService"
 
 pluginManagement {
     repositories {
