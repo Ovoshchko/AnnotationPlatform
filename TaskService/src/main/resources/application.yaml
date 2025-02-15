@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: task-service
+  liquibase:
+    enabled: true
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgres://localhost:5432/label_tasks}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  kafka:
+    bootstrap-servers: {SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
