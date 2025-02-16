@@ -27,7 +27,7 @@ class BatchService(
     fun uploadBatch(batchUploadRequest: BatchUploadRequest) {
         val batch = saveBatch(
             Batch(
-                name = batchUploadRequest.batchName,
+                name = batchUploadRequest.name,
                 owner = batchUploadRequest.owner,
                 priority = batchUploadRequest.priority,
                 agreements = batchUploadRequest.agreements,
