@@ -65,6 +65,7 @@ fun Batch.toDto(): BatchDtoResponse {
         agreements = this.agreements,
         overlapCoefficient = this.overlapCoefficient,
         createdAt = this.createdAt,
+        isEducational = this.isEducational,
         taskType = this.taskType
     )
 }

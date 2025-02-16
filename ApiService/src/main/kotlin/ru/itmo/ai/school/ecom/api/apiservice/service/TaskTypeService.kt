@@ -3,6 +3,7 @@ package ru.itmo.ai.school.ecom.api.apiservice.service
 import jakarta.persistence.EntityNotFoundException
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
+import reactor.core.scheduler.Schedulers
 import ru.itmo.ai.school.ecom.api.apiservice.db.model.TaskType
 import ru.itmo.ai.school.ecom.api.apiservice.db.model.toDto
 import ru.itmo.ai.school.ecom.api.apiservice.db.repository.TaskTypeRepository
@@ -16,6 +17,7 @@ class TaskTypeService(
 
     fun getAllTasks(): Mono<List<TaskTypeDto>> {
         return Mono.fromCallable { taskTypeRepository.findAll().map { it.toDto() } }
+            .subscribeOn(Schedulers.boundedElastic())
     }
 
     fun getTaskTypeById(id: UUID): Mono<TaskType> {

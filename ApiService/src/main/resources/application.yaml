@@ -18,6 +18,13 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
-security:
-  jwt:
-    secret: c2VjcmV0c2VjcmV0c2VjcmV0c2VjcmV0IQ==
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui/index.html
+
+batch:
+  service:
+    url: ${BATCH_SERVICE_URL:http://localhost:8085}
+
