@@ -1,10 +1,10 @@
 package ru.itmo.ai.school.ecom.api.apiservice.controller
 
-import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Mono
 import ru.itmo.ai.school.ecom.api.apiservice.dto.request.BatchUploadRequest
 import ru.itmo.ai.school.ecom.api.apiservice.dto.response.BatchListInfoResponse
+import ru.itmo.ai.school.ecom.api.apiservice.dto.response.toBatchListInfoResponse
 import ru.itmo.ai.school.ecom.api.apiservice.service.BatchService
 
 @RestController
@@ -13,18 +13,18 @@ class BatchController(
     private val batchService: BatchService
 ) {
 
-    @PostMapping("/upload")
+    @PostMapping
     fun uploadBatch(@RequestBody batchUploadRequest: BatchUploadRequest) {
         batchService.uploadBatch(batchUploadRequest)
             .subscribe()
     }
 
-    @GetMapping("/all")
+    @GetMapping
     fun getAllBatches(
         @RequestParam(defaultValue = "0") page: Int,
         @RequestParam(defaultValue = "20") size: Int,
         @RequestParam(required = false) owner: String?
     ): Mono<BatchListInfoResponse> {
-        return batchService.getBatches(owner, page, size)
+        return batchService.getBatches(owner, page, size).map { it.toBatchListInfoResponse(size) }
     }
 }
