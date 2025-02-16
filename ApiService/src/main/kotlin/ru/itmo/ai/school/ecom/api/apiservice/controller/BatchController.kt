@@ -13,13 +13,13 @@ class BatchController(
     private val batchService: BatchService
 ) {
 
-    @PostMapping("/upload")
+    @PostMapping
     fun uploadBatch(@RequestBody batchUploadRequest: BatchUploadRequest) {
         batchService.uploadBatch(batchUploadRequest)
             .subscribe()
     }
 
-    @GetMapping("/all")
+    @GetMapping
     fun getAllBatches(
         @RequestParam(defaultValue = "0") page: Int,
         @RequestParam(defaultValue = "20") size: Int,
