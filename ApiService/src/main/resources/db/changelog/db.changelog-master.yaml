@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
-      id: 1
+      id: 3
       author: ashinyakov
       changes:
         - sqlFile:
-            path: classpath:/db/changelog/sql/001-create-tables.sql
+            path: classpath:/db/changelog/sql/001-create-api-tables.sql

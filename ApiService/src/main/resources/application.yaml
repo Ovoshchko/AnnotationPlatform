@@ -3,10 +3,12 @@ spring:
     name: api-service
   webflux:
     base-path: /api
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.reactive.ReactiveUserDetailsServiceAutoConfiguration
   liquibase:
     enabled: true
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgres://localhost:5432/label_tasks}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/label_tasks}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
     password: ${SPRING_DATASOURCE_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
@@ -15,3 +17,7 @@ spring:
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+security:
+  jwt:
+    secret: c2VjcmV0c2VjcmV0c2VjcmV0c2VjcmV0IQ==
