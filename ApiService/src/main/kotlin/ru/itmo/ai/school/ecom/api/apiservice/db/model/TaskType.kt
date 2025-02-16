@@ -4,6 +4,8 @@ import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import jakarta.persistence.Table
+import org.hibernate.annotations.JdbcTypeCode
+import org.hibernate.type.SqlTypes
 import ru.itmo.ai.school.ecom.api.apiservice.dto.response.TaskTypeDto
 import java.util.UUID
 
@@ -17,6 +19,7 @@ data class TaskType(
     val name: String,
 
     @Column(name = "annotation_metadata", columnDefinition = "jsonb")
+    @JdbcTypeCode(SqlTypes.JSON)
     val annotationMetadata: Map<String, Any>? = null,
 
     @Column(columnDefinition = "text")
