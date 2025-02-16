@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Mono
 import ru.itmo.ai.school.ecom.api.apiservice.dto.request.BatchUploadRequest
 import ru.itmo.ai.school.ecom.api.apiservice.dto.response.BatchListInfoResponse
+import ru.itmo.ai.school.ecom.api.apiservice.dto.response.toBatchListInfoResponse
 import ru.itmo.ai.school.ecom.api.apiservice.service.BatchService
 
 @RestController
@@ -25,6 +26,6 @@ class BatchController(
         @RequestParam(defaultValue = "20") size: Int,
         @RequestParam(required = false) owner: String?
     ): Mono<BatchListInfoResponse> {
-        return batchService.getBatches(owner, page, size)
+        return batchService.getBatches(owner, page, size).map { it.toBatchListInfoResponse(size) }
     }
 }
