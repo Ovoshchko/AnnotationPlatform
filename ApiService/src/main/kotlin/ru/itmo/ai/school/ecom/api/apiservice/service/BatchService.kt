@@ -6,8 +6,6 @@ import ru.itmo.ai.school.ecom.api.apiservice.client.BatchClient
 import ru.itmo.ai.school.ecom.api.apiservice.dto.request.BatchUploadRequest
 import ru.itmo.ai.school.ecom.api.apiservice.dto.request.toTaskServiceBatchUploadRequest
 import ru.itmo.ai.school.ecom.api.apiservice.dto.response.BatchDtoListResponse
-import ru.itmo.ai.school.ecom.api.apiservice.dto.response.BatchListInfoResponse
-import ru.itmo.ai.school.ecom.api.apiservice.dto.response.toBatchListInfoResponse
 
 @Service
 class BatchService(
