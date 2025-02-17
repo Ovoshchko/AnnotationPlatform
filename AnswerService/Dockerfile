@@ -1,4 +1,4 @@
-FROM arm64v8/eclipse-temurin:21-jdk AS build
+FROM arm64v8/eclipse-temurin:17-jdk AS build
 
 # Set the working directory
 WORKDIR /app
@@ -21,7 +21,7 @@ COPY . .
 # Build the application, skipping tests
 RUN ./gradlew build -x test
 
-FROM eclipse-temurin:21-jre
+FROM eclipse-temurin:17-jre
 
 # Set the working directory
 WORKDIR /app
