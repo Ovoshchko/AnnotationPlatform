@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class BatchUploadRequest(
-    val name: String,
+    val batchName: String,
     val owner: String,
     val overlapCoefficient: Int = 1,
     val priority: Int = 3,
