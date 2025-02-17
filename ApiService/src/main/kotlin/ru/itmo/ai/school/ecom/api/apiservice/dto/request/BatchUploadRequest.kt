@@ -7,7 +7,7 @@ import kotlin.random.Random
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class BatchUploadRequest(
-    val batchName: String,
+    val name: String,
     val overlapCoefficient: Int = 1,
     val priority: Int = 3,
     val taskType: String,
@@ -19,7 +19,7 @@ data class BatchUploadRequest(
 
 fun BatchUploadRequest.toTaskServiceBatchUploadRequest(): TaskServiceBatchUploadRequest {
     return TaskServiceBatchUploadRequest(
-        batchName = this.batchName,
+        batchName = this.name,
         owner = "owner" + Random.nextInt(10),
         overlapCoefficient = this.overlapCoefficient,
         priority = this.priority,
