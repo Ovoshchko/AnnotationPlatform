@@ -5,3 +5,6 @@ import ru.itmo.ai.school.ecom.labelsmanagerservice.answerservice.entity.FilledTa
 import java.util.*
 
 interface FilledTaskRepository : JpaRepository<FilledTask, UUID>
+
+
+fun countByAssessor() : Long {TODO()}
