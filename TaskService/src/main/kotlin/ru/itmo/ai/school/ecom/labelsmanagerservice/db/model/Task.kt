@@ -4,6 +4,7 @@ import jakarta.persistence.*
 import org.hibernate.annotations.JdbcTypeCode
 import org.hibernate.type.SqlTypes
 import ru.itmo.ai.school.ecom.labelsmanagerservice.dto.response.TaskDtoResponse
+import ru.itmo.ai.school.ecom.labelsmanagerservice.kafka.KafkaTaskDto
 import java.time.LocalDateTime
 import java.util.UUID
 
@@ -55,6 +56,22 @@ fun Task.toDto(): TaskDtoResponse {
         metadata = this.metadata,
         isHoneypot = this.isHoneypot,
         status = this.status,
+        finalAnswer = this.finalAnswer,
+        properties = this.properties,
+        createdAt = this.createdAt
+    )
+}
+
+fun Task.toKafkaDto(typeName: String): KafkaTaskDto {
+    return KafkaTaskDto(
+        id = this.id,
+        name = this.name,
+        s3Path = this.s3Path,
+        batchId = this.batch.id,
+        taskTypeName = typeName,
+        metadata = this.metadata,
+        isHoneypot = this.isHoneypot,
+        status = this.status.name,
         finalAnswer = this.finalAnswer,
         properties = this.properties,
         createdAt = this.createdAt

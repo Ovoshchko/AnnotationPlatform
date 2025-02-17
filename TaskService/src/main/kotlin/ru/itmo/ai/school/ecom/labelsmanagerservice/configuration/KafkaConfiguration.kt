@@ -10,6 +10,7 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.kafka.core.ProducerFactory
 import ru.itmo.ai.school.ecom.labelsmanagerservice.db.model.Task
+import ru.itmo.ai.school.ecom.labelsmanagerservice.kafka.KafkaTaskDto
 
 @EnableKafka
 @Configuration
@@ -19,7 +20,7 @@ class KafkaConfiguration(
 ) {
 
     @Bean
-    fun producerFactory(): ProducerFactory<String, Task> {
+    fun producerFactory(): ProducerFactory<String, KafkaTaskDto> {
         val config: Map<String, Any> = mapOf(
             ProducerConfig.BOOTSTRAP_SERVERS_CONFIG to kafkaProperties.bootstrapServers,
             ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG to kafkaProperties.producer.keySerializer,
@@ -30,7 +31,7 @@ class KafkaConfiguration(
     }
 
     @Bean
-    fun kafkaTemplate(): KafkaTemplate<String, Task> {
+    fun kafkaTemplate(): KafkaTemplate<String, KafkaTaskDto> {
         return KafkaTemplate(producerFactory())
     }
 }
