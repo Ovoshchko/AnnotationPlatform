@@ -66,7 +66,6 @@ fun Task.toKafkaDto(typeName: String): KafkaTaskDto {
     return KafkaTaskDto(
         id = this.id,
         name = this.name,
-        s3Path = this.s3Path,
         batchId = this.batch.id,
         taskTypeName = typeName,
         metadata = this.metadata,

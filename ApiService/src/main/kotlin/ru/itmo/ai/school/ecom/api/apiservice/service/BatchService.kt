@@ -18,8 +18,8 @@ class BatchService(
         return batchClient.getAllBatches(owner, page, size)
     }
 
-    fun uploadBatch(batchUploadRequest: BatchUploadRequest): Mono<Void> {
-        return batchClient.uploadBatch(batchUploadRequest.toTaskServiceBatchUploadRequest())
+    fun uploadBatch(batchUploadRequest: BatchUploadRequest, owner: String): Mono<Void> {
+        return batchClient.uploadBatch(batchUploadRequest.toTaskServiceBatchUploadRequest(owner))
     }
 
     fun getBatchById(id: UUID): Mono<BatchDtoResponse> {
