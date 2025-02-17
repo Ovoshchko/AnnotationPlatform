@@ -29,6 +29,7 @@ class SecurityConfiguration(
             .cors { }
             .authorizeExchange { exchanges ->
                 exchanges
+                    .pathMatchers("/swagger-ui/**", "/v3/api-docs*/**").permitAll()
                     .anyExchange().authenticated()
             }
             .formLogin().disable()

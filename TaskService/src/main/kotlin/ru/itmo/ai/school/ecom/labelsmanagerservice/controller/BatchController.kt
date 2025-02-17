@@ -13,7 +13,7 @@ class BatchController(
     private val batchService: BatchService
 ) {
 
-    @GetMapping("/all")
+    @GetMapping
     fun getAllBatches(
         @RequestParam(defaultValue = "0") page: Int,
         @RequestParam(defaultValue = "20") size: Int,
@@ -31,7 +31,7 @@ class BatchController(
         return batchService.getBatchWithTasks(batchId, page, size)
     }
 
-    @PostMapping("/upload")
+    @PostMapping
     fun uploadBatch(@RequestBody batchUploadRequest: BatchUploadRequest) {
         batchService.uploadBatch(batchUploadRequest)
     }
