@@ -8,10 +8,7 @@ import org.springframework.security.web.server.authentication.AuthenticationWebF
 import org.springframework.security.authentication.ReactiveAuthenticationManager
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder
-import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.reactive.CorsWebFilter
-import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource
-import org.springframework.web.server.WebFilter
 import ru.itmo.ai.school.ecom.api.apiservice.security.JwtReactiveAuthenticationManager
 import ru.itmo.ai.school.ecom.api.apiservice.security.JwtServerAuthenticationConverter
 
