@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.client.WebClient
 import reactor.core.publisher.Mono
-import ru.itmo.ai.school.ecom.api.apiservice.dto.response.BatchDtoListResponse
+import ru.itmo.ai.school.ecom.api.apiservice.dto.response.BatchDtoResponse
+import ru.itmo.ai.school.ecom.api.apiservice.dto.response.BatchFromTaskServiceDtoListResponse
 import ru.itmo.ai.school.ecom.api.apiservice.dto.response.TaskServiceBatchUploadRequest
+import java.util.UUID
 
 @Component
 class BatchClient(
@@ -14,17 +16,17 @@ class BatchClient(
 
     fun uploadBatch(batchUploadRequest: TaskServiceBatchUploadRequest): Mono<Void> {
         return webClient.post()
-            .uri("/batch/upload")
+            .uri("/batch")
             .bodyValue(batchUploadRequest)
             .retrieve()
             .bodyToMono(Void::class.java)
             .then()
     }
 
-    fun getAllBatches(owner: String?, page: Int, size: Int): Mono<BatchDtoListResponse> {
+    fun getAllBatches(owner: String?, page: Int, size: Int): Mono<BatchFromTaskServiceDtoListResponse> {
         return webClient.get()
             .uri { builder ->
-                builder.path("/batch/all")
+                builder.path("/batch")
                     .queryParam("page", page)
                     .queryParam("size", size)
                     .apply {
@@ -35,6 +37,14 @@ class BatchClient(
                     .build()
             }
             .retrieve()
-            .bodyToMono(BatchDtoListResponse::class.java)
+            .bodyToMono(BatchFromTaskServiceDtoListResponse::class.java)
+    }
+
+    fun getBatchById(id: UUID): Mono<BatchDtoResponse> {
+        return webClient
+            .get()
+            .uri("/batch/${id}")
+            .retrieve()
+            .bodyToMono(BatchDtoResponse::class.java)
     }
 }

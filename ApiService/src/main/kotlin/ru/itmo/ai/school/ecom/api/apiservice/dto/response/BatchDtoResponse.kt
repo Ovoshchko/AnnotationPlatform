@@ -7,13 +7,9 @@ import java.util.*
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class BatchDtoResponse(
-    val batchId: UUID,
     val batchName: String,
     val owner: String,
-    val priority: Int,
-    val agreements: Map<String, Any>?,
-    val overlapCoefficient: Int,
-    val createdAt: LocalDateTime,
+    val taskType: UUID,
     val isEducational: Boolean,
-    val taskType: UUID
+    val createdAt: LocalDateTime
 )

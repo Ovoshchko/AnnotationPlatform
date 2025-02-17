@@ -6,20 +6,6 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class BatchDtoListResponse(
     val batches: List<BatchDtoResponse>,
-    val pageNumber: Int
+    val pageNumber: Int,
+    val pageSize: Int
 )
-
-fun BatchDtoListResponse.toBatchListInfoResponse(pageSize: Int): BatchListInfoResponse {
-    return BatchListInfoResponse(
-        batches = this.batches.map { batch ->
-            BatchInfo(
-                batchName = batch.batchName,
-                owner = batch.owner,
-                taskType = batch.taskType,
-                isEducational = batch.isEducational
-            )
-        },
-        pageNumber = this.pageNumber,
-        pageSize = pageSize
-    )
-}
