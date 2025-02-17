@@ -9,6 +9,7 @@ import org.springframework.security.authentication.ReactiveAuthenticationManager
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder
 import org.springframework.web.cors.reactive.CorsWebFilter
+import ru.itmo.ai.school.ecom.api.apiservice.security.JwtAuthenticationFilter
 import ru.itmo.ai.school.ecom.api.apiservice.security.JwtReactiveAuthenticationManager
 import ru.itmo.ai.school.ecom.api.apiservice.security.JwtServerAuthenticationConverter
 
@@ -20,7 +21,9 @@ class SecurityConfiguration(
 
 
     @Bean
-    fun securityWebFilterChain(http: ServerHttpSecurity): SecurityWebFilterChain {
+    fun securityWebFilterChain(
+        http: ServerHttpSecurity
+    ): SecurityWebFilterChain {
         return http
             .csrf { it.disable() }
             .cors { }
@@ -34,6 +37,7 @@ class SecurityConfiguration(
             .authenticationManager(jwtReactiveAuthenticationManager())
             .addFilterAt(corsFilter, SecurityWebFiltersOrder.CORS)
             .addFilterAt(authenticationWebFilter(), SecurityWebFiltersOrder.AUTHENTICATION)
+            .addFilterAt(JwtAuthenticationFilter(JwtReactiveAuthenticationManager()), SecurityWebFiltersOrder.AUTHENTICATION)
             .build()
     }
 

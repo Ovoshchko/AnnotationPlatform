@@ -2,11 +2,10 @@ package ru.itmo.ai.school.ecom.api.apiservice.security
 
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.authority.SimpleGrantedAuthority
-import org.springframework.security.core.userdetails.User
 import org.springframework.security.authentication.ReactiveAuthenticationManager
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
+import org.springframework.security.core.authority.SimpleGrantedAuthority
 import reactor.core.publisher.Mono
 
 class JwtReactiveAuthenticationManager : ReactiveAuthenticationManager {

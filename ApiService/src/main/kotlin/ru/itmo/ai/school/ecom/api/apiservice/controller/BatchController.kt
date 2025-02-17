@@ -1,6 +1,7 @@
 package ru.itmo.ai.school.ecom.api.apiservice.controller
 
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.server.ServerWebExchange
 import reactor.core.publisher.Mono
 import ru.itmo.ai.school.ecom.api.apiservice.dto.request.BatchUploadRequest
 import ru.itmo.ai.school.ecom.api.apiservice.dto.response.BatchDtoListResponse
@@ -16,8 +17,8 @@ class BatchController(
 ) {
 
     @PostMapping
-    fun uploadBatch(@RequestBody batchUploadRequest: BatchUploadRequest) {
-        batchService.uploadBatch(batchUploadRequest)
+    fun uploadBatch(exchange: ServerWebExchange, @RequestBody batchUploadRequest: BatchUploadRequest) {
+        batchService.uploadBatch(batchUploadRequest,exchange.getAttribute("owner") ?: "basic")
             .subscribe()
     }
 

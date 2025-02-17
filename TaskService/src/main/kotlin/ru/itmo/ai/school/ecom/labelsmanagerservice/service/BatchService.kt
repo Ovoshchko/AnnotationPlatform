@@ -4,10 +4,7 @@ import jakarta.persistence.EntityNotFoundException
 import jakarta.transaction.Transactional
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
-import ru.itmo.ai.school.ecom.labelsmanagerservice.db.model.Batch
-import ru.itmo.ai.school.ecom.labelsmanagerservice.db.model.Task
-import ru.itmo.ai.school.ecom.labelsmanagerservice.db.model.toDto
-import ru.itmo.ai.school.ecom.labelsmanagerservice.db.model.toDtoWithTasks
+import ru.itmo.ai.school.ecom.labelsmanagerservice.db.model.*
 import ru.itmo.ai.school.ecom.labelsmanagerservice.db.repository.BatchRepository
 import ru.itmo.ai.school.ecom.labelsmanagerservice.dto.request.BatchUploadRequest
 import ru.itmo.ai.school.ecom.labelsmanagerservice.dto.response.BatchDtoListResponse
@@ -49,7 +46,10 @@ class BatchService(
 
             taskService.saveAllTasks(tasksToSave)
 
-            taskProducer.sendTasks(tasksToSave, batchUploadRequest.taskTypeName)
+            taskProducer.sendTasks(
+                tasksToSave.map { it.toKafkaDto(batchUploadRequest.taskTypeName) },
+                batchUploadRequest.taskTypeName
+            )
         }
     }
 

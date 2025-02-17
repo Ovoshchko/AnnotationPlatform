@@ -17,10 +17,10 @@ data class BatchUploadRequest(
     val tasks: List<Map<String, Any?>> = emptyList()
 )
 
-fun BatchUploadRequest.toTaskServiceBatchUploadRequest(): TaskServiceBatchUploadRequest {
+fun BatchUploadRequest.toTaskServiceBatchUploadRequest(owner: String): TaskServiceBatchUploadRequest {
     return TaskServiceBatchUploadRequest(
         name = this.name,
-        owner = "owner" + Random.nextInt(10),
+        owner = owner,
         overlapCoefficient = this.overlapCoefficient,
         priority = this.priority,
         taskType = this.taskType,
