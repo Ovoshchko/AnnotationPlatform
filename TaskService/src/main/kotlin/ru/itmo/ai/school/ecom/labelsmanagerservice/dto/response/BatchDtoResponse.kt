@@ -2,14 +2,13 @@ package ru.itmo.ai.school.ecom.labelsmanagerservice.dto.response
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.databind.annotation.JsonNaming
-import org.apache.kafka.common.protocol.types.Field.Bool
 import java.time.LocalDateTime
 import java.util.*
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class BatchDtoResponse(
-    val batchId: UUID,
-    val batchName: String,
+    val id: UUID,
+    val name: String,
     val owner: String,
     val priority: Int,
     val agreements: Map<String, Any>?,

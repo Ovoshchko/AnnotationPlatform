@@ -7,7 +7,7 @@ import java.util.*
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class BatchDtoResponse(
-    val batchName: String,
+    val name: String,
     val owner: String,
     val taskType: UUID,
     val isEducational: Boolean,

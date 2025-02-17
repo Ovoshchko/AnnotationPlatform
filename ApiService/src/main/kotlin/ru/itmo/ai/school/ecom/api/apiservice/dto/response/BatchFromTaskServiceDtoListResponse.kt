@@ -13,7 +13,7 @@ fun BatchFromTaskServiceDtoListResponse.toBatchListInfoResponse(pageSize: Int): 
     return BatchDtoListResponse(
         batches = this.batches.map { batch ->
             BatchDtoResponse(
-                batchName = batch.batchName,
+                name = batch.name,
                 owner = batch.owner,
                 taskType = batch.taskType,
                 isEducational = batch.isEducational,

@@ -44,7 +44,7 @@ data class Batch(
 fun Batch.toDtoWithTasks(tasks: List<TaskDtoResponse>, tasksPage: Int): BatchWithTasksResponse {
     return BatchWithTasksResponse(
         batchId = this.id,
-        batchName = this.name,
+        name = this.name,
         owner = this.owner,
         priority = this.priority,
         agreements = this.agreements,
@@ -58,8 +58,8 @@ fun Batch.toDtoWithTasks(tasks: List<TaskDtoResponse>, tasksPage: Int): BatchWit
 
 fun Batch.toDto(): BatchDtoResponse {
     return BatchDtoResponse(
-        batchId = this.id,
-        batchName = this.name,
+        id = this.id,
+        name = this.name,
         owner = this.owner,
         priority = this.priority,
         agreements = this.agreements,

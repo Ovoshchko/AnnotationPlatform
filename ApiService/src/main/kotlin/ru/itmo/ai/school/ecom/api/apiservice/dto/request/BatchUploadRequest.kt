@@ -19,7 +19,7 @@ data class BatchUploadRequest(
 
 fun BatchUploadRequest.toTaskServiceBatchUploadRequest(): TaskServiceBatchUploadRequest {
     return TaskServiceBatchUploadRequest(
-        batchName = this.name,
+        name = this.name,
         owner = "owner" + Random.nextInt(10),
         overlapCoefficient = this.overlapCoefficient,
         priority = this.priority,
