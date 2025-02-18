@@ -24,12 +24,12 @@ fun FilledTaskDto.toEntity(isCorrect: Boolean?): FilledTask {
 }
 
 fun FilledTaskDto.getOverlap(): Int {
-    return (metadata["overlap"] ?: throw RuntimeException("Could not get overlap")) as Int
+    return (metadata["overlap_coef"] ?: throw RuntimeException("Could not get overlap")) as Int
 }
 
 fun FilledTaskDto.getCorrectAnswer(): Map<String, Any?> {
     if (isHoneypot) {
-        return (metadata["correctAnswer"]
+        return (metadata["correct_answer"]
             ?: throw RuntimeException("Could not get correctAnswer from honeypot task")) as Map<String, Any?>
     }
     throw RuntimeException("Could not get correctAnswer because task is not honeypot")
