@@ -1,4 +1,4 @@
-FROM arm64v8/eclipse-temurin:21-jdk AS build
+FROM eclipse-temurin:21-jdk AS build
 
 # Set the working directory
 WORKDIR /app
