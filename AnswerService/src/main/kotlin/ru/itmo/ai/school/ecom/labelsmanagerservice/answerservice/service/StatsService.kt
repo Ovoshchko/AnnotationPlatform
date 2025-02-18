@@ -5,8 +5,8 @@ import ru.itmo.ai.school.ecom.labelsmanagerservice.answerservice.dto.FilledTaskD
 
 @Service
 class StatsService() {
-    fun processTask(filledTask: FilledTaskDto) {
-        TODO("Not yet implemented")
+    fun processTask(filledTask: FilledTaskDto, isCorrect: Boolean?) {
+//        TODO("Not yet implemented")
     }
 
 }

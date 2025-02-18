@@ -27,4 +27,7 @@ data class FilledTask(
 
     @Column(name = "created_at", nullable = false)
     val filledAt: LocalDateTime = LocalDateTime.now(),
+
+    @Column(name = "is_correct")
+    val isCorrect: Boolean? = null,
 )
