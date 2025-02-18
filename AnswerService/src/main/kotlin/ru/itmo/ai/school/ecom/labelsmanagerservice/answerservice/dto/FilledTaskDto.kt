@@ -11,9 +11,22 @@ data class FilledTaskDto(
     val isHoneypot: Boolean,
 )
 
-fun FilledTaskDto.toEntity(): FilledTask {
+fun FilledTaskDto.toEntity(isCorrect: Boolean?): FilledTask {
     return FilledTask(
         taskId = taskId,
-        filledBy = filledBy
+        filledBy = filledBy,
+        isCorrect = isCorrect,
     )
+}
+
+fun FilledTaskDto.getOverlap(): Int {
+    return (metadata["overlap"] ?: throw RuntimeException("Could not get overlap")) as Int
+}
+
+fun FilledTaskDto.getCorrectAnswer(): Map<String, Any?> {
+    if (isHoneypot) {
+        return (metadata["correctAnswer"]
+            ?: throw RuntimeException("Could not get correctAnswer from honeypot task")) as Map<String, Any?>
+    }
+    throw RuntimeException("Could not get correctAnswer because task is not honeypot")
 }
