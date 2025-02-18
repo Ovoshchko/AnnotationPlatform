@@ -4,7 +4,7 @@ import java.util.*
 
 data class FilledTaskDto(
     val taskId: UUID,
-    val filledBy: String,
+    var filledBy: String,
     val answer: Map<String, String>,
     val metadata: Map<String, Any?>,
     val isHoneypot: Boolean,
