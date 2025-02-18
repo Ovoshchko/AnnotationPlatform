@@ -7,6 +7,7 @@ spring:
     exclude: org.springframework.boot.autoconfigure.security.reactive.ReactiveUserDetailsServiceAutoConfiguration
   liquibase:
     enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.yaml
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/label_tasks}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
@@ -38,4 +39,3 @@ springdoc:
 answer:
   service:
     url: ${ANSWER_SERVICE_URL:http://localhost:8086}
-

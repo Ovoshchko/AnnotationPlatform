@@ -4,6 +4,5 @@ CREATE TABLE IF NOT EXISTS task_filled
     task_id    uuid         not null,
     answer     jsonb,
     filled_by  varchar(255) not null,
-    created_at timestamp    not null,
-    is_correct boolean
+    created_at timestamp    not null
 );

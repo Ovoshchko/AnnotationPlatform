@@ -1,0 +1,2 @@
+ALTER TABLE task_filled
+    ADD COLUMN IF NOT EXISTS is_correct BOOLEAN;
