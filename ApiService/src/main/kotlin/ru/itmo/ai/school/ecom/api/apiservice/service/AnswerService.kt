@@ -9,10 +9,13 @@ import ru.itmo.ai.school.ecom.api.apiservice.dto.answer.FilledTaskDto
 class AnswerService(
     private val kafkaTemplate: KafkaTemplate<String, FilledTaskDto>,
 ) {
-    private val logger = LoggerFactory.getLogger(AnswerService::class.java)
+    private val log = LoggerFactory.getLogger(AnswerService::class.java)
     private val FILLED_TASK_TOPIC = "answer"
 
     fun sendFilledTask(filledTaskDto: FilledTaskDto) {
-        kafkaTemplate.send(FILLED_TASK_TOPIC, filledTaskDto.filledBy, filledTaskDto)
+        kafkaTemplate.executeInTransaction { kafkaOps ->
+            kafkaOps.send(FILLED_TASK_TOPIC, filledTaskDto.filledBy, filledTaskDto)
+        }
+        log.info("Sent task filled by ${filledTaskDto.filledBy} to kafka from api-service")
     }
 }

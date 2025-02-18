@@ -11,7 +11,9 @@ class CompletedTaskProducer(
 ) {
     private val log = LoggerFactory.getLogger(CompletedTaskProducer::class.java)
     fun publishCompletedTask(completedTaskDto: CompletedTaskDto) {
-        kafkaTemplate.send("completed-tasks", completedTaskDto.taskId.toString(), completedTaskDto)
+        kafkaTemplate.executeInTransaction { kafkaOps ->
+            kafkaOps.send("completed-tasks", completedTaskDto.taskId.toString(), completedTaskDto)
+        }
         log.info("Sent completed task to kafka 'completed-tasks'")
     }
 }
