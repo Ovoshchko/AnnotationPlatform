@@ -17,6 +17,7 @@ data class FilledTaskDto(
 fun FilledTaskDto.toEntity(isCorrect: Boolean?): FilledTask {
     return FilledTask(
         taskId = taskId,
+        answer = answer,
         filledBy = filledBy,
         isCorrect = isCorrect,
     )

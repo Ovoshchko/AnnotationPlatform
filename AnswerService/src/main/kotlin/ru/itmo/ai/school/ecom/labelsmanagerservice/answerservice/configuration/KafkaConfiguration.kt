@@ -58,8 +58,8 @@ class KafkaConfiguration(
     }
 
     @Bean
-    fun kafkaListenerContainerFactory(): ConcurrentKafkaListenerContainerFactory<String, KafkaTaskDto> {
-        val factory = ConcurrentKafkaListenerContainerFactory<String, KafkaTaskDto>()
+    fun kafkaListenerContainerFactory(): ConcurrentKafkaListenerContainerFactory<String, FilledTaskDto> {
+        val factory = ConcurrentKafkaListenerContainerFactory<String, FilledTaskDto>()
         factory.consumerFactory = consumerFactory()
         return factory
     }
