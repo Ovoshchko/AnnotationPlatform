@@ -37,7 +37,6 @@ dependencies {
 	implementation("org.liquibase:liquibase-core")
 	implementation("org.springframework.kafka:spring-kafka:3.1.0")
 	implementation("org.springframework.boot:spring-boot-starter-data-redis")
-	implementation("org.springframework.boot:spring-boot-starter-cache")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("org.postgresql:postgresql")
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
