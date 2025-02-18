@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-@EnableAutoConfiguration
 class LabelsManagerServiceApplication
 
 fun main(args: Array<String>) {
