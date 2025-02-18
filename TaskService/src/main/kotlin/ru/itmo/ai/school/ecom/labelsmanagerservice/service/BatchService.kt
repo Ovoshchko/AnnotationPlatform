@@ -40,14 +40,15 @@ class BatchService(
                     name = "${batch.name}_task_${index}",
                     s3Path = "",
                     batch = Batch(id = batch.id),
-                    metadata = task
+                    metadata = mapOf("overlapCoefficient" to batch.overlapCoefficient),
+                    properties = task
                 )
             }
 
             taskService.saveAllTasks(tasksToSave)
 
             taskProducer.sendTasks(
-                tasksToSave.map { it.toKafkaDto(batchUploadRequest.taskTypeName) },
+                tasksToSave.map { it.toKafkaDto(batchUploadRequest.taskType) },
                 batchUploadRequest.taskTypeName
             )
         }
