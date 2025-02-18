@@ -1,22 +1,24 @@
 package ru.itmo.ai.school.ecom.labelsmanagerservice.configuration
 
+import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.clients.producer.ProducerConfig
+import org.apache.kafka.common.serialization.StringDeserializer
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.kafka.annotation.EnableKafka
-import org.springframework.kafka.core.DefaultKafkaProducerFactory
-import org.springframework.kafka.core.KafkaTemplate
-import org.springframework.kafka.core.ProducerFactory
-import ru.itmo.ai.school.ecom.labelsmanagerservice.db.model.Task
+import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory
+import org.springframework.kafka.core.*
+import org.springframework.kafka.support.serializer.JsonDeserializer
+import ru.itmo.ai.school.ecom.labelsmanagerservice.dto.CompletedTaskDto
 import ru.itmo.ai.school.ecom.labelsmanagerservice.kafka.KafkaTaskDto
 
 @EnableKafka
 @Configuration
 @EnableConfigurationProperties(KafkaProperties::class)
 class KafkaConfiguration(
-    private val kafkaProperties: KafkaProperties
+    private val kafkaProperties: KafkaProperties,
 ) {
 
     @Bean
@@ -33,5 +35,32 @@ class KafkaConfiguration(
     @Bean
     fun kafkaTemplate(): KafkaTemplate<String, KafkaTaskDto> {
         return KafkaTemplate(producerFactory())
+    }
+
+    @Bean
+    fun consumerFactory(): ConsumerFactory<String, CompletedTaskDto> {
+        val jsonDeserializer = JsonDeserializer(CompletedTaskDto::class.java).apply {
+            setRemoveTypeHeaders(false)
+            addTrustedPackages("*")
+            setUseTypeMapperForKey(true)
+        }
+
+        return DefaultKafkaConsumerFactory(
+            mapOf(
+                ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG to kafkaProperties.bootstrapServers,
+                ConsumerConfig.GROUP_ID_CONFIG to kafkaProperties.consumer.groupId,
+                ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG to StringDeserializer::class.java,
+                ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG to JsonDeserializer::class.java
+            ),
+            StringDeserializer(),
+            jsonDeserializer
+        )
+    }
+
+    @Bean
+    fun kafkaListenerContainerFactory(): ConcurrentKafkaListenerContainerFactory<String, CompletedTaskDto> {
+        val factory = ConcurrentKafkaListenerContainerFactory<String, CompletedTaskDto>()
+        factory.consumerFactory = consumerFactory()
+        return factory
     }
 }

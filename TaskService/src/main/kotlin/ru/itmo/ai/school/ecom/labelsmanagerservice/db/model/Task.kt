@@ -33,11 +33,11 @@ data class Task(
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    val status: TaskStatus = TaskStatus.NOT_STARTED,
+    var status: TaskStatus = TaskStatus.NOT_STARTED,
 
     @Column(name = "final_answer", columnDefinition = "jsonb")
     @JdbcTypeCode(SqlTypes.JSON)
-    val finalAnswer: Map<String, Any?>? = null,
+    var finalAnswer: Map<String, Any?>? = null,
 
     @Column(name = "properties", columnDefinition = "jsonb")
     @JdbcTypeCode(SqlTypes.JSON)
