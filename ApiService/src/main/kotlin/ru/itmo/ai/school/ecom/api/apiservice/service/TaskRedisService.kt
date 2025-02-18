@@ -12,37 +12,36 @@ class TaskRedisService(
     private val redisTemplate: ReactiveRedisTemplate<String, Task>
 ) {
 
-    private val givenCountMap = ConcurrentHashMap<UUID, Int>()
+    private val givenCountMap = ConcurrentHashMap<UUID, Pair<Int, MutableSet<String>>>()
 
-    fun getTask(taskTypeId: UUID): Mono<Task> {
+    fun getTask(taskTypeId: UUID, user: String): Mono<Task> {
         return redisTemplate.opsForList().range(taskTypeId.toString(), 0, -1)
             .filter { task ->
-                val givenCount = givenCountMap[task.id] ?: 0
-                givenCount < task.overlapCoefficient
+                val (givenCount, users) = givenCountMap[task.id] ?: (0 to mutableSetOf())
+                givenCount < task.overlapCoefficient && user !in users
             }
             .next()
             .flatMap { task ->
-                incrementGivenCount(task).thenReturn(task)
+                incrementGivenCount(task, user).thenReturn(task)
             }
     }
 
     fun saveTask(task: Task): Mono<Long> {
         return redisTemplate.opsForList().rightPush(task.taskTypeName, task)
-            .flatMap { _ -> updateGivenCount(task) }
     }
 
-    private fun incrementGivenCount(task: Task): Mono<Boolean> {
-        val newGivenCount = (givenCountMap[task.id] ?: 0) + 1
-        givenCountMap[task.id] = newGivenCount
-        return Mono.just(true)
-    }
-
-    private fun updateGivenCount(task: Task): Mono<Long> {
-        val newGivenCount = task.givenCount + 1
-        givenCountMap[task.id] = newGivenCount
-        return Mono.just(newGivenCount.toLong())
+    private fun incrementGivenCount(task: Task, user: String): Mono<Boolean> {
+        return Mono.fromCallable {
+            givenCountMap.compute(task.id) { _, current ->
+                val (givenCount, users) = current ?: (0 to mutableSetOf())
+                users.add(user)
+                (givenCount + 1) to users
+            }
+            true
+        }
     }
 }
+
 
 
 

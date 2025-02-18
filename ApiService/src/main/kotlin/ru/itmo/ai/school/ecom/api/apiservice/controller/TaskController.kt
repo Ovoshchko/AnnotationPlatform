@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.server.ServerWebExchange
 import reactor.core.publisher.Mono
 import ru.itmo.ai.school.ecom.api.apiservice.dto.response.TaskToFillDto
 import ru.itmo.ai.school.ecom.api.apiservice.model.toFillDto
@@ -18,8 +19,8 @@ class TaskController(
 ) {
 
     @GetMapping
-    fun getTask(@RequestParam project: UUID = UUID.randomUUID()): Mono<ResponseEntity<TaskToFillDto>> {
-        return taskRedisService.getTask(project)
+    fun getTask(exchange: ServerWebExchange, @RequestParam project: UUID = UUID.randomUUID()): Mono<ResponseEntity<TaskToFillDto>> {
+        return taskRedisService.getTask(project, exchange.getAttribute("owner") ?: "basic")
             .map { ResponseEntity.ok(it.toFillDto()) }
             .defaultIfEmpty(ResponseEntity.noContent().build())
     }
