@@ -1,12 +1,15 @@
 package ru.itmo.ai.school.ecom.labelsmanagerservice.answerservice.dto
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies
+import com.fasterxml.jackson.databind.annotation.JsonNaming
 import ru.itmo.ai.school.ecom.labelsmanagerservice.answerservice.entity.FilledTask
 import java.util.*
 
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class FilledTaskDto(
     val taskId: UUID,
     val filledBy: String,
-    val answer: Map<String, String>,
+    val answer: Map<String, Any?>,
     val metadata: Map<String, Any?>,
     val isHoneypot: Boolean,
 )
@@ -14,6 +17,7 @@ data class FilledTaskDto(
 fun FilledTaskDto.toEntity(isCorrect: Boolean?): FilledTask {
     return FilledTask(
         taskId = taskId,
+        answer = answer,
         filledBy = filledBy,
         isCorrect = isCorrect,
     )
