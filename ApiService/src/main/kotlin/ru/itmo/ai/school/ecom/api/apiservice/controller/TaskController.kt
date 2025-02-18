@@ -18,7 +18,7 @@ class TaskController(
 ) {
 
     @GetMapping
-    fun getTask(@RequestParam project: UUID): Mono<ResponseEntity<TaskToFillDto>> {
+    fun getTask(@RequestParam project: UUID = UUID.randomUUID()): Mono<ResponseEntity<TaskToFillDto>> {
         return taskRedisService.getTask(project)
             .map { ResponseEntity.ok(it.toFillDto()) }
             .defaultIfEmpty(ResponseEntity.noContent().build())

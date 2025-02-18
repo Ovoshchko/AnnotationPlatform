@@ -16,8 +16,8 @@ data class Task @JsonCreator constructor(
     @JsonProperty("finalAnswer") val finalAnswer: Map<String, Any?>? = null,
     @JsonProperty("properties") val properties: Map<String, Any?> = emptyMap(),
     @JsonProperty("overlapCoefficient") val overlapCoefficient: Int = 1,
-    @JsonProperty("givenCount") val givenCount: Int = 1,
-    @JsonProperty("filledCount") val filledCount: Int = 1
+    @JsonProperty("givenCount") val givenCount: Int = -1,
+    @JsonProperty("filledCount") val filledCount: Int = 0
 )
 
 fun Task.toFillDto(): TaskToFillDto {
