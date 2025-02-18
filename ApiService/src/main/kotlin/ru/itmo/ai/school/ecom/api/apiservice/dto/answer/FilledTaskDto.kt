@@ -4,11 +4,11 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.databind.annotation.JsonNaming
 import java.util.*
 
-//@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class FilledTaskDto(
     val taskId: UUID,
     var filledBy: String,
-    val answer: Map<String, String>,
+    val answer: Map<String, Any?>,
     val metadata: Map<String, Any?>,
     val isHoneypot: Boolean,
 )
