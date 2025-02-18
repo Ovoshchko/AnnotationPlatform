@@ -44,20 +44,14 @@ class KafkaConfiguration(
             addTrustedPackages("*")
             setUseTypeMapperForKey(true)
         }
-        val config: MutableMap<String, Any> = mutableMapOf()
-        config[ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG] = kafkaProperties.bootstrapServers
-        config[ConsumerConfig.GROUP_ID_CONFIG] = kafkaProperties.consumer.groupId
-        config[ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG] = StringDeserializer::class.java
-        config[ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG] = JsonDeserializer::class.java
 
         return DefaultKafkaConsumerFactory(
-            config,
-//            mapOf(
-//                ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG to kafkaProperties.bootstrapServers,
-//                ConsumerConfig.GROUP_ID_CONFIG to kafkaProperties.consumer.groupId,
-//                ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG to StringDeserializer::class.java,
-//                ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG to JsonDeserializer::class.java
-//            ),
+            mapOf(
+                ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG to kafkaProperties.bootstrapServers,
+                ConsumerConfig.GROUP_ID_CONFIG to kafkaProperties.consumer.groupId,
+                ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG to StringDeserializer::class.java,
+                ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG to JsonDeserializer::class.java
+            ),
             StringDeserializer(),
             jsonDeserializer
         )
